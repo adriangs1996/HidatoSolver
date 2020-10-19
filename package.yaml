@@ -1,0 +1,50 @@
+name:                SudokuHidato
+version:             0.1.0.0
+github:              "adriangs1996/SudokuHidato"
+license:             BSD3
+author:              "Adrian Gonzalez Sanchez"
+maintainer:          "adriangonzalezsanchez1996@gmail.com"
+copyright:           "BSD"
+
+extra-source-files:
+- README.md
+- ChangeLog.md
+
+# Metadata used when publishing your package
+# synopsis:            Short description of your package
+# category:            Game
+
+# To avoid duplicated efforts in documentation and dealing with the
+# complications of embedding Haddock markup inside cabal files, it is
+# common to point users to the README.md file.
+description:         Please see the README on GitHub at <https://github.com/adriangs1996/SudokuHidato#readme>
+
+dependencies:
+- base >= 4.7 && < 5
+- containers
+- time
+
+library:
+  source-dirs: src
+
+executables:
+  SudokuHidato-exe:
+    main:                Main.hs
+    source-dirs:         app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - SudokuHidato
+
+tests:
+  SudokuHidato-test:
+    main:                Spec.hs
+    source-dirs:         test
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - SudokuHidato
