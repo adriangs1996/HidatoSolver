@@ -3,18 +3,14 @@
 
 module Hidato where
 
-import           Data.Maybe                     ( listToMaybe )
-
-
 import           Lib
 import           Data.IntMap                    ( IntMap )
 
-
-bruteForceHidato :: BoardProblem -> Maybe (IntMap (IntMap Int))
-bruteForceHidato brd = listToMaybe $ h 2 (cells brd) (onePos brd) (givens brd)
+bruteForceHidato :: BoardProblem -> [IntMap (IntMap Int)]
+bruteForceHidato brd = h 2 (cells brd) (onePos brd) (givens brd)
   where
     h nval pmap (x, y) gs
-        | nval == endVal brd = [pmap]
+        | isSolved pmap (onePos brd) (endVal brd) = [pmap]
         | nval == head gs = if null nvalAdj
             then []
             else h (nval + 1) pmap (fst $ head nvalAdj) (tail gs)
@@ -39,6 +35,3 @@ bruteForceHidato brd = listToMaybe $ h 2 (cells brd) (onePos brd) (givens brd)
                         h (nval + 1) (tupIns nx ny nval pmap) (nx, ny) gs
                     )
                 $ filter ((== Just 0) . snd) lkdUp
-
-connect2Hidato :: BoardProblem -> Maybe (IntMap (IntMap Int))
-connect2Hidato = undefined
