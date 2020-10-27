@@ -117,3 +117,10 @@ isSolved pmap (x, y) maxVal = noEmpty && connected (x, y) 1
             ]
         pos = filter ((== Just (curVal + 1)) . snd)
             $ map (\(i, j) -> ((i, j), tupLookup i j pmap)) around
+
+generateNxMBoard :: Int -> Int -> [String]
+generateNxMBoard n m = take n $ repeat $ concat $ take m $ repeat "0 "
+
+-- >>> generateNxMBoard 5 3
+-- ["0 0 0 ","0 0 0 ","0 0 0 ","0 0 0 ","0 0 0 "]
+

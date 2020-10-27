@@ -15,22 +15,22 @@ main = do
     printCellMap $ cells sampleBoard
     let solved = bruteForceHidato sampleBoard
     printCellMap $ head solved
-    putStrLn (show (isSolved (head solved) (onePos sampleBoard) (endVal sampleBoard)))
     let sols = map printCellMap $ bruteForceHidato sampleBoard
+    -- Esto imprime todas las soluciones a medida que las encuentra
     printM sols
     
 
 sample :: [[Char]]
 sample =
-    [ "0 "
-    , "0 8"
-    , "0 0 11"
-    , "29 0 10 0"
-    , "30 0 0 0 0"
-    , "0 31 1 38 0 0"
-    , "0 32 0 0 39 41 0"
-    , "0 0 0 22 0 0 42 0"
-    , "0 0 0 0 0 0 0 44 45"
+    [ "0 . . . . . . . ."
+    , "0 0 . . . . . . ."
+    , "0 0 0 . . . . . ."
+    , "0 0 0 0 . . . . ."
+    , "0 0 0 0 0 . . . ."
+    , "0 0 1 0 0 0 . . ."
+    , "0 0 0 0 0 0 0 . ."
+    , "0 0 0 0 0 0 0 0 ."
+    , "0 0 0 0 0 0 0 0 45"
     ]
 
 
