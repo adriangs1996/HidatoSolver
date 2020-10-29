@@ -12,6 +12,13 @@ import           Data.List                      ( foldl'
                                                 , sort
                                                 )
 import           Data.Time.Clock                ( )
+import           System.Random
+
+
+
+
+
+
 
 data BoardProblem = Board
   {
@@ -123,4 +130,14 @@ generateNxMBoard n m = take n $ repeat $ concat $ take m $ repeat "0 "
 
 -- >>> generateNxMBoard 5 3
 -- ["0 0 0 ","0 0 0 ","0 0 0 ","0 0 0 ","0 0 0 "]
+
+genRandTuple :: Int -> (Int, Int)
+genRandTuple seed = (x, y)
+  where
+    gen = mkStdGen seed
+    x   = abs $ head $ randoms gen :: Int
+    y   = abs $ last $ take 2 $ randoms gen :: Int
+
+-- >>> genRandTuple 1000
+-- (1611434616111168504,961026615473336794)
 

@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 485dcce4f5a727a3bf09089d731a0df62770753bbbfc9bb9c79be87e6edf5334
+-- hash: 03c116d75347b8345e807f5013227229986f1c8e360fa249c3cc7ea70d2353f8
 
 name:           SudokuHidato
 version:        0.1.0.0
@@ -36,6 +36,7 @@ library
   build-depends:
       base >=4.7 && <5
     , containers
+    , random >=1.1
     , time
   default-language: Haskell2010
 
@@ -50,6 +51,7 @@ executable SudokuHidato-exe
       SudokuHidato
     , base >=4.7 && <5
     , containers
+    , random >=1.1
     , time
   default-language: Haskell2010
 
@@ -65,5 +67,6 @@ test-suite SudokuHidato-test
       SudokuHidato
     , base >=4.7 && <5
     , containers
+    , random >=1.1
     , time
   default-language: Haskell2010
