@@ -14,12 +14,6 @@ import           Data.List                      ( foldl'
 import           Data.Time.Clock                ( )
 import           System.Random
 
-
-
-
-
-
-
 data BoardProblem = Board
   {
     -- El tablero es una matriz de enteros que se puede representar

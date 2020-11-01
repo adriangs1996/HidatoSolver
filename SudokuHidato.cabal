@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 03c116d75347b8345e807f5013227229986f1c8e360fa249c3cc7ea70d2353f8
+-- hash: 83bec2e622bcda7a343a44dab782c0f5839d6bc90b56d52086c57c153335b324
 
 name:           SudokuHidato
 version:        0.1.0.0
@@ -27,8 +27,16 @@ source-repository head
 
 library
   exposed-modules:
+      Board
+      BoardGen
+      Cell
       Hidato
+      HidatoBoard
       Lib
+      MyMatrix
+      PathTree
+      Solve
+      Utils
   other-modules:
       Paths_SudokuHidato
   hs-source-dirs:
