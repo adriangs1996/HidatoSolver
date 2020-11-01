@@ -57,7 +57,7 @@ parse argv = case getOpt Permute options argv of
     (_, _, err) -> do
         hPutStrLn stderr (concat err ++ usageInfo header options)
         exitWith $ ExitFailure 1
-    where header = "Usage: SudokuHidato [options]"
+    where header = "Usage: SudokuHidato [-rsftg]"
 
 
 printM :: [IO ()] -> IO ()
@@ -125,7 +125,10 @@ main = do
         content <- readFile file
         mapM_ (printCellMap . cells . makeBoard . read) $ lines content
 
-    manage []       = putStrLn "Done"
+    manage [] = do
+        hPutStrLn stderr (usageInfo header options)
+        exitWith ExitSuccess
+        where header = "Usage: SudokuHidato [-rsftg]"
 
     manage (x : xs) = do
         manage [x]
