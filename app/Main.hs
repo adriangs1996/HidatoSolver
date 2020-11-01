@@ -98,6 +98,7 @@ main = do
                       printCellMap $ cells y
                   )
             $ generateXBoard x
+
     manage [GenerateAndSolve] = do
         time <- getCurrentTime
         let timeInt = floor $ utctDayTime time

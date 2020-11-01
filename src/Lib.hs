@@ -48,12 +48,27 @@ makeBoard =
         . concatMap (zip [0 ..])
         . zipWith (\y w -> map (y, ) $ words w) [0 ..]
   where
+    -- Modificar el tablero en dependencia del valor v y las coordenadas (x, y)
+
     f bd (x, (y, v)) = if v == "."
         then bd
+                  -- Insertar el valor v en dict[x][y]
+
         else Board (tupIns x y (read v) (cells bd))
+
+                  -- Actualizar el maximo valor del tablero si es necesario
+
                    (if read v > endVal bd then read v else endVal bd)
+
+                   -- Si encontramos el 1, guardar su posicion
+
                    (if v == "1" then (x, y) else onePos bd)
+
+                   -- Agregar un valor prefijado
+
                    (read v : givens bd)
+
+-- Representar un tablero de una manera agradable en una consola
 
 
 printCellMap :: IntMap (IntMap Int) -> IO ()
@@ -95,10 +110,15 @@ cellMapToStr cellmap = concat strings
                 Just n  -> (if n < 10 then ' ' : show n else show n) ++ z
 
 isSolved :: IntMap (IntMap Int) -> (Int, Int) -> Int -> Bool
+-- Comprobar si un tablero esta resuelto
+
 isSolved pmap (x, y) maxVal = noEmpty && connected (x, y) 1
   where
+    -- Comprobar que no haya 0 en el tablero
+
     noEmpty = not . elem 0 . concat . map I.elems $ I.elems pmap
-    connected :: (Int, Int) -> Int -> Bool
+    -- Comprobar que el tablero sea un camino Hamiltoniano
+
     connected (x1, y1) curVal
         | curVal == maxVal = True
         | otherwise = case pos of
