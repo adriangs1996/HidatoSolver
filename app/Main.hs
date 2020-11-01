@@ -9,7 +9,7 @@ import           System.IO
 import           Data.List
 import           System.Exit
 import           System.Environment
-import Control.Concurrent
+import           Control.Concurrent
 
 data Flag =
     Help
@@ -17,6 +17,7 @@ data Flag =
     | GenerateAndSolve
     | GenerateTestFile String
     | SolveFromFile String
+    | ShowFromFile String
     deriving (Eq, Ord, Show)
 
 options :: [OptDescr Flag]
@@ -26,19 +27,22 @@ options =
              ["generate"]
              (ReqArg (\x -> Generator (read x)) "COUNT")
              "Generate COUNT boards and shows them"
-    , Option
-        ['s']
-        ["genandsolve"]
-        (NoArg GenerateAndSolve)
-        "Generate 1 board, prints it, solves it and print the solution"
+    , Option ['s']
+             ["genandsolve"]
+             (NoArg GenerateAndSolve)
+             "Generate 1 board, prints it, solves it and print the solution"
     , Option ['t']
              ["gentestfile"]
              (ReqArg GenerateTestFile "FILE")
-             "Generate 50 boards and save them in FILE"
+             "Generate 10 boards and save them in FILE"
     , Option ['f']
              ["solvefromfile"]
              (ReqArg SolveFromFile "FILE")
              "Read boards in file and solve them"
+    , Option ['r']
+             ["showFile"]
+             (ReqArg ShowFromFile "FILE")
+             "Read boards in file and show them"
     ]
 
 parse :: [String] -> IO [Flag]
@@ -97,7 +101,7 @@ main = do
     manage [GenerateAndSolve] = do
         time <- getCurrentTime
         let timeInt = floor $ utctDayTime time
-        let board = makeBoard $ generateBoard timeInt
+        let board   = makeBoard $ generateBoard timeInt
         printCellMap $ cells board
         printCellMap . head $ bruteForceHidato board
 
@@ -117,8 +121,12 @@ main = do
         mapM_ (printCellMap . head . bruteForceHidato . makeBoard . read)
             $ lines content
 
-    manage [] = putStrLn "Done"
+    manage [ShowFromFile file] = do
+        content <- readFile file
+        mapM_ (printCellMap . cells . makeBoard . read) $ lines content
 
-    manage (x:xs) = do
+    manage []       = putStrLn "Done"
+
+    manage (x : xs) = do
         manage [x]
         manage xs
