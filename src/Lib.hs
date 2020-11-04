@@ -70,7 +70,6 @@ makeBoard =
 
 -- Representar un tablero de una manera agradable en una consola
 
-
 printCellMap :: IntMap (IntMap Int) -> IO ()
 printCellMap cellmap = putStrLn $ concat strings
   where

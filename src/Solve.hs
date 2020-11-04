@@ -209,7 +209,7 @@ getUniqueBoard' brd seed list = getUniqueBoard' newBrd newSeed newList
     (pos2Del, newList) = popAtIndex elemInd list
     tempBrd            = setFree pos2Del brd
     strBrd             = boardToStrings tempBrd
-    solCount           = length (bruteForceHidato (makeBoard strBrd))
+    solCount           = length $ take 2 (bruteForceHidato (makeBoard strBrd))
     newBrd             = terOp (solCount == 1) tempBrd brd
     newSeed            = genRandInt seed
 
